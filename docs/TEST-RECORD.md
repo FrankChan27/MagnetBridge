@@ -4,9 +4,9 @@ Environment: Linux sandbox, Node 22, 2026-09-12. No IDMan.exe present (not Windo
 
 ## Unit
 
-`node --experimental-strip-types --test src/lib/magnet/*.test.ts`
+`node --experimental-strip-types --test src/lib/magnet/*.test.ts src/lib/idm/*.test.ts`
 
-11/11 pass: magnet parse, Windows path sanitization, state machine, piece/file mapping.
+Magnet parse / sanitization / state machine / piece mapping plus Architecture D range-map, demand store, official CLI builder, localhost Range server.
 
 ## End-to-end public torrents (real bytes, real SHA-1)
 
@@ -19,7 +19,7 @@ Environment: Linux sandbox, Node 22, 2026-09-12. No IDMan.exe present (not Windo
 
 Raw JSON: [e2e-results.json](e2e-results.json)
 
-## IDM bridge experiment (architecture B)
+## IDM as BT accelerator (architecture B, Q1)
 
 64 MiB local payload, loopback HTTP Range vs `copyFile`.
 
@@ -35,6 +35,34 @@ Raw JSON: [benchmark-idm-bridge.json](benchmark-idm-bridge.json)
 
 IDM official FAQ: torrents unsupported. Official CLI: HTTP URL only. Verdict: **REJECTED**.
 
+## IDM as download frontend (architecture D, Q2)
+
+Client: **SIMULATED_IDM_CLIENT**. This is **not** a real IDMan.exe PASS.
+
+Demand-driven Range bridge over the CC0 probe file (49 257 bytes, sha256 `b759d7d1…58158d6`). Pieces are fetched only after HTTP Range arrives; SHA-1 is required before bytes leave the server.
+
+| Mode | Wall ms | Conns | First pieces | HTTP | Notes |
+| --- | --- | --- | --- | --- | --- |
+| jump | 161 | 2 | 1,2,3 then 0 | 206×2 | tail requested first; not a full prefetch |
+| multi | 104 | 8 | 0–3 | 206×8, concurrentPeak 8 | overlapping ranges, inflightPeak 3 |
+| sequential | 107 | 1 | 0–3 | 200 | one GET streams pieces in order |
+| retry | 121 | 2 | 0–3 | abort+reconnect 1 | no garbage after abort |
+
+All four: sha256 match, `prefetchedAllBeforeFirstByte=false`, `secondCompleteCopyBeforeHttp=false`.
+
+Raw JSON: [architecture-d-sandbox.json](architecture-d-sandbox.json)
+
+| Check | Status | Notes |
+| --- | --- | --- |
+| Empty store before first HTTP | sandbox | measured in experiment |
+| Jump/tail range does not prefetch the whole torrent | sandbox | jump mode |
+| Concurrent 8-range GET | sandbox | simulated IDM multi |
+| Hash failure never served | unit | piece-store.test |
+| Independent sha256 of assembled file | sandbox | must match probe |
+| Real IDMan.exe E2E | **not run** | Linux host. Use `native/windows/test-idm-bridge.cmd` |
+
+Verdict Q2: **PARTIAL — WINDOWS_IDM_E2E_REQUIRED**
+
 ## Other acceptance checks
 
 | Check | Status | Notes |
@@ -42,10 +70,10 @@ IDM official FAQ: torrents unsupported. Official CLI: HTTP URL only. Verdict: **
 | Pause / resume state machine | PASS | DOWNLOADING ⇄ PAUSED, FAILED can retry, COMPLETED is terminal |
 | Kill app → restart | PASS (web) | localStorage reloads tasks as PAUSED |
 | Duplicate magnet | PASS | same info-hash reuses the live task |
-| IDM missing fallback | PASS | default engine is WebSeed/WebTorrent |
-| IDM present | N/A | logged and ignored on Windows CLI |
+| IDM missing fallback | PASS | default engine is WebSeed/WebTorrent (Architecture A) |
+| IDM present | N/A | opt-in `--idm` only; ignored otherwise |
 | No Xunlei | PASS | not referenced in runtime |
-| Hash / integrity | PASS | piece SHA-1 on every WebSeed piece |
+| Hash / integrity | PASS | piece SHA-1 on every WebSeed piece and every D response |
 | Network blip | PASS | Range fetches retry 3 times with backoff |
 
 ## Product status
@@ -53,5 +81,6 @@ IDM official FAQ: torrents unsupported. Official CLI: HTTP URL only. Verdict: **
 | Goal | Mark |
 | --- | --- |
 | magnet → complete local file without babysitting | **SUPPORTED** (WebSeed / WebRTC magnets; Node CLI for TCP swarms) |
-| IDM as last-mile downloader | **REJECTED** |
+| IDM as last-mile BT accelerator | **REJECTED** |
+| IDM as unified download frontend | **PARTIAL — WINDOWS_IDM_E2E_REQUIRED** |
 | ≥1 GB full swarm download in this sandbox | **PARTIAL** (metadata only) |

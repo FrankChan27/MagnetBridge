@@ -92,6 +92,15 @@ async function resolveFileUrl(
   throw lastError ?? new Error("没有可用的 WebSeed 地址");
 }
 
+export async function fetchVerifiedPiece(
+  meta: ParsedMetadata,
+  pieceIndex: number,
+  origin: string,
+  signal?: AbortSignal,
+): Promise<Uint8Array> {
+  return downloadPiece(meta, pieceIndex, origin, signal);
+}
+
 async function downloadPiece(
   meta: ParsedMetadata,
   pieceIndex: number,

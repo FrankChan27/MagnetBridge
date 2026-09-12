@@ -13,9 +13,9 @@ if (-not $found) {
 }
 if ($found) {
   Write-Output "FOUND $found"
-  Write-Output "ACTION ignore"
-  Write-Output "VERDICT REJECTED — IDM is not part of the MagnetBridge download path"
+  Write-Output "Q1_ACCELERATOR REJECTED"
+  Write-Output "Q2_FRONTEND PARTIAL — opt-in with --idm or native\windows\test-idm-bridge.cmd"
 } else {
   Write-Output "NOT_FOUND"
-  Write-Output "FALLBACK webseed+webtorrent"
+  Write-Output "FALLBACK architecture A (webseed+webtorrent)"
 }

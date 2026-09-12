@@ -16,8 +16,9 @@
     "preview:stop": "node scripts/preview.mjs stop",
     "typecheck": "tsc --noEmit",
     "check:auth": "node scripts/check-auth-invariant.mjs",
-    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/magnet/parse.test.ts src/lib/magnet/sanitize.test.ts src/lib/magnet/transitions.test.ts src/lib/magnet/pieces.test.ts src/lib/magnet/bencode-torrent.test.ts",
+    "test": "node --test 'scripts/**/*.test.mjs' && node --experimental-strip-types --test src/lib/app-data/app-data.test.ts src/lib/app-data/readiness-schedule.test.ts src/lib/auth/gate-identity.test.ts src/lib/auth/sign-in-gate.test.ts src/lib/magnet/parse.test.ts src/lib/magnet/sanitize.test.ts src/lib/magnet/transitions.test.ts src/lib/magnet/pieces.test.ts src/lib/magnet/bencode-torrent.test.ts src/lib/magnet/range-map.test.ts src/lib/magnet/piece-store.test.ts src/lib/idm/cli.test.ts src/lib/idm/range-server.test.ts",
     "test:e2e": "node --experimental-strip-types scripts/e2e-download.ts",
+    "test:arch-d": "node --experimental-strip-types scripts/architecture-d-sandbox.ts",
     "bench:idm": "node scripts/idm-bridge-experiment.mjs",
     "lint": "eslint .",
     "format": "prettier --write ."

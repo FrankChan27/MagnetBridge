@@ -1,0 +1,184 @@
+{
+  "client": "SIMULATED_IDM_CLIENT",
+  "environment": {
+    "platform": "linux",
+    "realIdm": false
+  },
+  "architectureAStillDefault": true,
+  "question1Accelerator": "REJECTED",
+  "question2Frontend": "PARTIAL",
+  "qualifier": "WINDOWS_IDM_E2E_REQUIRED",
+  "notes": [
+    "Pieces are fetched only after HTTP Range arrives.",
+    "Unverified pieces are not served.",
+    "This is not a real IDMan.exe run."
+  ],
+  "modes": [
+    {
+      "client": "SIMULATED_IDM_CLIENT",
+      "mode": "jump",
+      "fixture": "magnetbridge-probe",
+      "wallMs": 363,
+      "simulatedMs": 363,
+      "connections": 2,
+      "bytes": 49257,
+      "sha256": "b759d7d1f5b906e8ff770debc3081f2e47b8e99ede6aca87ce07c1dac68158d6",
+      "sha256Ok": true,
+      "piecesFetched": [
+        1,
+        2,
+        3,
+        0
+      ],
+      "piecesAtEnd": 4,
+      "cacheHits": 1,
+      "cacheMisses": 4,
+      "priorityChanges": 5,
+      "blockedMs": 55,
+      "inflightPeak": 1,
+      "http": {
+        "headCount": 1,
+        "getCount": 2,
+        "rangeCount": 2,
+        "concurrentPeak": 1,
+        "statusCounts": {
+          "200": 1,
+          "206": 2,
+          "404": 1
+        },
+        "reconnects": 0,
+        "aborted": 0
+      },
+      "prefetchedAllBeforeFirstByte": false,
+      "demandDriven": true,
+      "secondCompleteCopyBeforeHttp": false,
+      "cpuUserMs": 90,
+      "cpuSysMs": 5,
+      "rssDeltaMb": 1.4
+    },
+    {
+      "client": "SIMULATED_IDM_CLIENT",
+      "mode": "multi",
+      "fixture": "magnetbridge-probe",
+      "wallMs": 273,
+      "simulatedMs": 273,
+      "connections": 8,
+      "bytes": 49257,
+      "sha256": "b759d7d1f5b906e8ff770debc3081f2e47b8e99ede6aca87ce07c1dac68158d6",
+      "sha256Ok": true,
+      "piecesFetched": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "piecesAtEnd": 4,
+      "cacheHits": 0,
+      "cacheMisses": 11,
+      "priorityChanges": 11,
+      "blockedMs": 49,
+      "inflightPeak": 3,
+      "http": {
+        "headCount": 1,
+        "getCount": 8,
+        "rangeCount": 8,
+        "concurrentPeak": 8,
+        "statusCounts": {
+          "200": 1,
+          "206": 8,
+          "404": 1
+        },
+        "reconnects": 0,
+        "aborted": 0
+      },
+      "prefetchedAllBeforeFirstByte": false,
+      "demandDriven": true,
+      "secondCompleteCopyBeforeHttp": false,
+      "cpuUserMs": 20,
+      "cpuSysMs": 4,
+      "rssDeltaMb": 1.7
+    },
+    {
+      "client": "SIMULATED_IDM_CLIENT",
+      "mode": "sequential",
+      "fixture": "magnetbridge-probe",
+      "wallMs": 294,
+      "simulatedMs": 294,
+      "connections": 1,
+      "bytes": 49257,
+      "sha256": "b759d7d1f5b906e8ff770debc3081f2e47b8e99ede6aca87ce07c1dac68158d6",
+      "sha256Ok": true,
+      "piecesFetched": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "piecesAtEnd": 4,
+      "cacheHits": 0,
+      "cacheMisses": 4,
+      "priorityChanges": 4,
+      "blockedMs": 49,
+      "inflightPeak": 1,
+      "http": {
+        "headCount": 1,
+        "getCount": 1,
+        "rangeCount": 0,
+        "concurrentPeak": 1,
+        "statusCounts": {
+          "200": 2
+        },
+        "reconnects": 0,
+        "aborted": 0
+      },
+      "prefetchedAllBeforeFirstByte": false,
+      "demandDriven": true,
+      "secondCompleteCopyBeforeHttp": false,
+      "cpuUserMs": 10,
+      "cpuSysMs": 0,
+      "rssDeltaMb": 0.2
+    },
+    {
+      "client": "SIMULATED_IDM_CLIENT",
+      "mode": "retry",
+      "fixture": "magnetbridge-probe",
+      "wallMs": 299,
+      "simulatedMs": 299,
+      "connections": 2,
+      "bytes": 49257,
+      "sha256": "b759d7d1f5b906e8ff770debc3081f2e47b8e99ede6aca87ce07c1dac68158d6",
+      "sha256Ok": true,
+      "piecesFetched": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "piecesAtEnd": 4,
+      "cacheHits": 0,
+      "cacheMisses": 5,
+      "priorityChanges": 8,
+      "blockedMs": 48,
+      "inflightPeak": 1,
+      "http": {
+        "headCount": 1,
+        "getCount": 2,
+        "rangeCount": 2,
+        "concurrentPeak": 1,
+        "statusCounts": {
+          "200": 1,
+          "206": 2,
+          "404": 1
+        },
+        "reconnects": 1,
+        "aborted": 1
+      },
+      "prefetchedAllBeforeFirstByte": false,
+      "demandDriven": true,
+      "secondCompleteCopyBeforeHttp": false,
+      "cpuUserMs": 10,
+      "cpuSysMs": 0,
+      "rssDeltaMb": 0
+    }
+  ]
+}

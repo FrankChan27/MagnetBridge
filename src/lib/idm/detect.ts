@@ -21,8 +21,8 @@ export function detectIdmInBrowser(): IdmDetection {
     found: false,
     path: null,
     note: isWindows
-      ? "浏览器无法读取本机 IDMan.exe。Windows 本地 CLI 会检查常见安装路径与注册表，但即使找到也不会调用——架构 B 已被否决。"
-      : "当前环境不是 Windows，无法安装或调用 IDM。这不影响 magnet → 本地文件。",
+      ? "浏览器读不到 IDMan.exe。Q1（用 IDM 加速 BT）已否决。Q2（用已购买的 IDM 当下载前端）是可选 Architecture D，只在 Windows 本机 CLI / test-idm-bridge.cmd 上运行。"
+      : "当前不是 Windows。Architecture A 仍然可用。Architecture D 需要本机 IDMan.exe。",
   };
 }
 

@@ -14,9 +14,16 @@ export function MagnetApp() {
   const bridge = useMagnetBridge();
   const [tab, setTab] = useState<Tab>("download");
   const [localError, setLocalError] = useState<string | null>(null);
+  const [useIdmFrontend, setUseIdmFrontend] = useState(false);
 
   async function handleStart(magnet = bridge.input) {
     setLocalError(null);
+    if (useIdmFrontend) {
+      setLocalError(
+        "浏览器预览接不到你电脑上的 IDM。请在 Windows 运行 native\\windows\\test-idm-bridge.cmd，或 magnetbridge.cmd --idm。Architecture A 仍可用：取消勾选后再点开始。",
+      );
+      return;
+    }
     try {
       await bridge.startTask(magnet.trim());
       bridge.setInput("");
@@ -105,6 +112,16 @@ export function MagnetApp() {
                   </Button>
                 </div>
               </div>
+              <label className="mt-4 flex items-start gap-3 text-sm text-muted">
+                <Checkbox
+                  checked={useIdmFrontend}
+                  onCheckedChange={(value) => setUseIdmFrontend(value === true)}
+                  className="mt-0.5"
+                />
+                <span>
+                  使用已购买的 IDM 作为下载前端（Architecture D，仅 Windows 本机）。默认不勾选，走 Architecture A。
+                </span>
+              </label>
               {localError ? <p className="mt-3 text-sm text-danger">{localError}</p> : null}
               <p className="mt-3 text-xs text-subtle">
                 保存位置：{bridge.saveLabel}。未选择目录时，完成后会触发浏览器下载。
@@ -174,13 +191,16 @@ export function MagnetApp() {
                 Windows 11 的 Edge / Chrome 可以直接写盘。否则完成后走浏览器下载。
               </li>
               <li>
-                <span className="font-medium text-fg">4. 关掉页面再打开。</span>
-                未完成任务会显示为已暂停，点继续即可恢复。
+                <span className="font-medium text-fg">5. 想继续用已经购买的 IDM 当下载窗口。</span>
+                这是可选的 Architecture D，不是默认。浏览器里勾选只会告诉你去 Windows 跑
+                native\windows\test-idm-bridge.cmd。模拟客户端通过 ≠ 真实 IDM 通过。
               </li>
             </ol>
             <p className="rounded-lg border border-border bg-surface px-4 py-3 text-sm text-muted">
               <ShieldCheck className="mr-2 inline size-4 text-ok" />
-              IDM 即使装了也不会被调用。它对 magnet 没有合法、可靠的加速作用。
+              默认不会调用 IDM。Q1（用 IDM 加速 BT）已否决。若你已经买了 IDM 并想继续用它当下载窗口，在 Windows 上运行{" "}
+              <span className="font-mono text-fg">native\windows\test-idm-bridge.cmd</span>
+              ，那是可选的 Architecture D，尚未被真实 IDMan.exe 点亮。
             </p>
           </section>
         ) : null}
