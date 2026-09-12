@@ -1,0 +1,12 @@
+{
+  "copyOk": true,
+  "http1Ok": true,
+  "httpnOk": true,
+  "winner": "direct-copy",
+  "conclusion": "Loopback multi-connection HTTP does not beat a filesystem copy.",
+  "results": [
+    {"label": "direct-copy", "ms": 328, "mbps": 195},
+    {"label": "http-range-1", "ms": 1290, "mbps": 49.6},
+    {"label": "http-range-8-idm-like", "ms": 1609, "mbps": 39.8}
+  ]
+}
