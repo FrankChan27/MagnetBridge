@@ -1,0 +1,32 @@
+[
+  {
+    "name": "probe-self-host",
+    "infoHash": "f4beee6ffe97185e2753fc987ade8cb8a066f46c",
+    "selected": [
+      "magnetbridge-probe.txt"
+    ],
+    "bytes": 49257,
+    "ms": 54,
+    "mbps": 0.875,
+    "verifiedPieces": 4,
+    "sha256": [
+      "b759d7d1f5b906e8ff770debc3081f2e47b8e99ede6aca87ce07c1dac68158d6"
+    ],
+    "engine": "webseed"
+  },
+  {
+    "name": "sintel-en-srt-public",
+    "infoHash": "08ada5a7a6183aae1e09d831df6748d566095a10",
+    "selected": [
+      "Sintel.en.srt"
+    ],
+    "bytes": 1514,
+    "ms": 2117,
+    "mbps": 0.001,
+    "verifiedPieces": 1,
+    "sha256": [
+      "4ed7e1f1bc5ff69fe33606960e4c048ba6766237bf33b132fef76e1a92cb64b2"
+    ],
+    "engine": "webseed"
+  }
+]

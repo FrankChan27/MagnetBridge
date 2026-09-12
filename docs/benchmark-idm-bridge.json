@@ -3,10 +3,31 @@
   "http1Ok": true,
   "httpnOk": true,
   "winner": "direct-copy",
-  "conclusion": "Loopback multi-connection HTTP does not beat a filesystem copy.",
+  "conclusion": "Loopback multi-connection HTTP does not beat a filesystem copy. IDM cannot see a magnet, and bridging BT bytes through localhost Range is strictly extra work.",
   "results": [
-    {"label": "direct-copy", "ms": 328, "mbps": 195},
-    {"label": "http-range-1", "ms": 1290, "mbps": 49.6},
-    {"label": "http-range-8-idm-like", "ms": 1609, "mbps": 39.8}
+    {
+      "label": "direct-copy",
+      "ms": 328,
+      "mbps": 195,
+      "cpuUserMs": 0,
+      "cpuSysMs": 264,
+      "rssDeltaMb": 0
+    },
+    {
+      "label": "http-range-1",
+      "ms": 1290,
+      "mbps": 49.6,
+      "cpuUserMs": 328,
+      "cpuSysMs": 1231,
+      "rssDeltaMb": 121.8
+    },
+    {
+      "label": "http-range-8-idm-like",
+      "ms": 1609,
+      "mbps": 39.8,
+      "cpuUserMs": 314,
+      "cpuSysMs": 2380,
+      "rssDeltaMb": 135.1
+    }
   ]
 }

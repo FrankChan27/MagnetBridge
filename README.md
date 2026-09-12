@@ -4,6 +4,18 @@ Paste a magnet you already have the right to download. Press start. The file lan
 
 IDM is **not** part of this product. Research: [docs/ADR-001-architecture.md](docs/ADR-001-architecture.md). Verdict: **REJECTED**.
 
+## Current status
+
+This repository is the Architecture A prototype (first durable snapshot of the working implementation).
+
+| Path | Verdict |
+| --- | --- |
+| magnet → WebSeed Range and/or WebTorrent → local file | **SUPPORTED** |
+| magnet → BT → localhost HTTP → IDM | **REJECTED** |
+| Ubuntu 24.04.3 desktop 5.91 GB | **PARTIAL** — official metadata fetch succeeded; the full ISO was **not** downloaded |
+
+Measured records: [docs/TEST-RECORD.md](docs/TEST-RECORD.md), [docs/BENCHMARK.md](docs/BENCHMARK.md). Do not read the Ubuntu metadata result as a full-download PASS.
+
 ## 以后我拿到一个 magnet，怎么用
 
 1. 确认这份资源你有权下载。这里没有搜索，没有索引，也不会帮你绕过任何限制。
@@ -14,19 +26,51 @@ IDM is **not** part of this product. Research: [docs/ADR-001-architecture.md](do
 
 不要手工去点 qBittorrent WebUI，也不要手工把所谓直链喂给 IDM。
 
+## Run the web app
+
+```bash
+npm install
+npm run dev
+```
+
+Open the preview. Use the built-in **MagnetBridge 探针** (CC0, ~48 KB) for a first closed loop, or **Sintel 英文字幕** (CC-BY-3.0).
+
 ## Windows local CLI
 
-Needs Node.js 22+.
+Needs [Node.js 22+](https://nodejs.org). No extra server.
 
 ```bat
 native\windows\magnetbridge.cmd --out %USERPROFILE%\Downloads\MagnetBridge "magnet:?xt=urn:btih:..."
 ```
 
+or:
+
 ```bash
 node cli/magnetbridge.mjs --out ./downloads "magnet:?xt=urn:btih:..."
 ```
+
+The CLI uses WebTorrent in Node, which talks to regular BitTorrent peers. That is the fallback when a torrent has no WebSeed.
+
+## What this will not do
+
+- Search or recommend copyrighted content
+- Convert a magnet into an IDM “direct link”
+- Call Thunder / Xunlei
+- Bypass DRM, paywalls, or login walls
 
 ## Architecture
 
 **SUPPORTED** `magnet → WebSeed Range and/or WebTorrent → local file`  
 **REJECTED** `magnet → BT → localhost HTTP → IDM`
+
+qBittorrent WebUI *can* accept magnets (`POST /api/v2/torrents/add`). Embedding that as a hidden backend is valid, but shipping a JS engine avoids asking the user to install and click a second app.
+
+## Tests
+
+```bash
+npm test
+npm run test:e2e
+npm run bench:idm
+```
+
+Records: [docs/TEST-RECORD.md](docs/TEST-RECORD.md), [docs/LICENSES.md](docs/LICENSES.md), [docs/KNOWN-LIMITATIONS.md](docs/KNOWN-LIMITATIONS.md).

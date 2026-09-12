@@ -1,7 +1,57 @@
+# dependencies
 node_modules/
+
+# build / cache / deploy output
 .vercel/
 dist/
 .output/
+.nitro/
+.tanstack/
+.wrangler/
 *.log
+.node_modules.lock
+
+# Grok sandbox internals (not product source)
 .grok/
+AGENTS.md
+AGENTS.project.md
+.gitignore-magnet
+
+# generated
+src/routeTree.gen.ts
 routeTree.gen.ts
+
+# env / secrets / credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+id_rsa
+id_ed25519
+*.cookie
+secrets/
+
+# downloads / test payloads / user data
+downloads/
+cli-downloads/
+data/
+artifacts/
+*.iso
+*.img
+*.dmg
+*.vmdk
+ubuntu-*.torrent
+
+# QA screenshots (test records live under docs/)
+screenshots/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.swp
+.idea/
+.vscode/
